@@ -1,19 +1,18 @@
 //
-//  main.c
-//  ServerClient2
+//  client.c
+//  ServerClient
 //
 //  Created by Can Xiong on 6/3/15.
 //  Copyright (c) 2015 Can Xiong. All rights reserved.
 //
-/*
-	C ECHO client example using sockets
- */
-#include<stdio.h>	//printf
-#include<string.h>	//strlen
-#include<sys/socket.h>	//socket
-#include<arpa/inet.h>	//inet_addr
-
+/************************************************
+	Client using C sockets over TCP
+ ************************************************/
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <errno.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -41,8 +40,7 @@ int main(int argc , char *argv[])
     server.sin_port = htons( 8888 ); // Port number: 8888
     
     //Connect to remote server
-    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
-    {
+    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0) {
         perror("connect failed. Error");
         return 1;
     }

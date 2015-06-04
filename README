@@ -31,7 +31,7 @@ using ntohl() after receiving.
 
 
 ################# COMPILE & RUN ###################
-Directly compile and run server.c and client.c through terminal using gcc.
+Edit on XCode but compile and run through terminal using gcc at the same machine.
 
 [Environment] OSX Yosemite (Version 10.10.2)
 $ gcc --version
@@ -40,10 +40,10 @@ Apple LLVM version 6.0 (clang-600.0.56) (based on LLVM 3.5svn)
 Target: x86_64-apple-darwin14.1.0
 Thread model: posix
 
-[Compile] gcc client.c -o client
+[COMPILE] gcc client.c -o client
           gcc server.c -o server
 
-[Run] ./client
+[RUN] ./client
       ./server
 
 

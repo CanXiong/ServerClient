@@ -5,18 +5,18 @@
 //  Created by Can Xiong on 6/3/15.
 //  Copyright (c) 2015 Can Xiong. All rights reserved.
 //
-/*
-	C socket server example, handles multiple clients using threads
- */
+/************************************************
+	Server using C sockets over TCP, 
+    handles multiple clients using threads
+ ************************************************/
 
-#include<stdio.h>
-#include<string.h>	//strlen
-#include<stdlib.h>	//strlen
-#include<sys/socket.h>
-#include<arpa/inet.h>	//inet_addr
-#include<unistd.h>	//write
-#include<pthread.h> //for threading , link with lpthread
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <pthread.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -24,6 +24,7 @@
 
 //the thread function
 void *connection_handler(void *);
+// Gobal total
 static int32_t total = 0;
 
 int main(int argc , char *argv[]) {
@@ -58,7 +59,6 @@ int main(int argc , char *argv[]) {
     puts("Waiting for incoming connections...");
     c = sizeof(struct sockaddr_in);
     
-    
     while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)) ) {
         puts("Connection accepted");
         
@@ -85,8 +85,8 @@ int main(int argc , char *argv[]) {
 }
 
 /*
- * This will handle connection for each client
- * */
+ This will handle connection for each client
+ */
 void *connection_handler(void *socket_desc)
 {
     //Get the socket descriptor
@@ -97,7 +97,7 @@ void *connection_handler(void *socket_desc)
     
     char action;
     while( (read_size = recv(sock , &action , sizeof(char) , 0)) > 0) {
-        // CONCURRENCY may happen, using lock schema
+        // TODO: CONCURRENCY may happen, using lock schema
         // Add and Get happens simultaneously
         switch (action) {
             case 'a': { /******** Add integer to total ********/
