@@ -69,37 +69,36 @@ Option a: specify a number for addition.
 Option b: get total from server.
 Option c: quit.
 **********************************
-Please specify actions, a or b? a
+Please specify actions, a(add) or b(get) or q(quit)? a
 ---- Addition action: [a] ----
 Please enter a number: 7
 ------ Addition is done ------
 
-Please specify actions, a or b? a
+Please specify actions, a(add) or b(get) or q(quit)? a
 ---- Addition action: [a] ----
 Please enter a number: 8
 ------ Addition is done ------
 
-Please specify actions, a or b? b
+Please specify actions, a(add) or b(get) or q(quit)? b
 --- Get total action: [b] ---
 -------- Total = [15] --------
 
-Please specify actions, a or b? b
+Please specify actions, a(add) or b(get) or q(quit)? b
 --- Get total action: [b] ---
 -------- Total = [15] --------
 
-Please specify actions, a or b? a
+Please specify actions, a(add) or b(get) or q(quit)? a
 ---- Addition action: [a] ----
 Please enter a number: 79
 ------ Addition is done ------
 
-Please specify actions, a or b? b
+Please specify actions, a(add) or b(get) or q(quit)? b
 --- Get total action: [b] ---
 -------- Total = [96] --------
 
-Please specify actions, a or b? q
+Please specify actions, a(add) or b(get) or q(quit)? q
 ------------ Byebye -----------
 
-Cans-MacBook-Pro:ServerClient2 canxiong$
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~ CLIENT 2 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Cans-MacBook-Pro:ServerClient2 canxiong$ ./client
@@ -111,19 +110,19 @@ Option a: specify a number for addition.
 Option b: get total from server.
 Option c: quit.
 **********************************
-Please specify actions, a or b? a
+Please specify actions, a(add) or b(get) or q(quit)? a
 ---- Addition action: [a] ----
 Please enter a number: 2
 ------ Addition is done ------
 
-Please specify actions, a or b? b
+Please specify actions, a(add) or b(get) or q(quit)? b
 --- Get total action: [b] ---
 -------- Total = [96] --------
 
-Please specify actions, a or b? w
+Please specify actions, a(add) or b(get) or q(quit)? w
 Wrong Option.
 
-Please specify actions, a or b? q
+Please specify actions, a(add) or b(get) or q(quit)? q
 ------------ Byebye -----------
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~ SERVER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~

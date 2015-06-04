@@ -53,7 +53,7 @@ int main(int argc , char *argv[])
     
     //keep communicating with server
     while(1) {
-        printf("Please specify actions, a or b? ");
+        printf("Please specify actions, a(add) or b(get) or q(quit)? ");
         char reponse;
         scanf("\n%c" , &reponse);
         
