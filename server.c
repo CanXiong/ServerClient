@@ -26,16 +26,14 @@
 void *connection_handler(void *);
 static int32_t total = 0;
 
-int main(int argc , char *argv[])
-{
+int main(int argc , char *argv[]) {
     int socket_desc , client_sock , c , *new_sock;
     struct sockaddr_in server , client;
     
     //Create socket
     // SOCK_STREAM (TCP) or SOCK_DGRAM (UDP)
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
-    if (socket_desc == -1)
-    {
+    if (socket_desc == -1) {
         printf("Could not create socket");
     }
     puts("Socket created");
@@ -46,8 +44,7 @@ int main(int argc , char *argv[])
     server.sin_port = htons( 8888 );
     
     //Bind
-    if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0)
-    {
+    if( bind(socket_desc,(struct sockaddr *)&server , sizeof(server)) < 0) {
         //print the error message
         perror("bind failed. Error");
         return 1;
@@ -62,16 +59,14 @@ int main(int argc , char *argv[])
     c = sizeof(struct sockaddr_in);
     
     
-    while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)) )
-    {
+    while( (client_sock = accept(socket_desc, (struct sockaddr *)&client, (socklen_t*)&c)) ) {
         puts("Connection accepted");
         
         pthread_t sniffer_thread;
         new_sock = malloc(1);
         *new_sock = client_sock;
         
-        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0)
-        {
+        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0) {
             perror("could not create thread");
             return 1;
         }
@@ -81,8 +76,7 @@ int main(int argc , char *argv[])
         puts("Handler assigned");
     }
     
-    if (client_sock < 0)
-    {
+    if (client_sock < 0) {
         perror("accept failed");
         return 1;
     }
@@ -107,26 +101,37 @@ void *connection_handler(void *socket_desc)
 //    
 //    message = "Now type something and i shall repeat what you type \n";
 //    write(sock , message , strlen(message));
-    
-    //Receive a message from client
-    while( (read_size = recv(sock , client_integer , sizeof(int32_t) , 0)) > 0 )
-    {
-        total += ntohl(num);
-        printf( "server---> %s <> %d, total: %d\n", client_integer, ntohl(num), total );
-        
-        int32_t sendint = htonl(total);
-        message = (char*)&sendint;
-        //Send the message back to client
-        write(sock , message , 4);
+    char action;
+    while( (read_size = recv(sock , &action , sizeof(char) , 0)) > 0) {
+        //printf("action: %c\n", action);
+        switch (action) {
+            case 'a': {
+                //Receive a message from client
+                if( (read_size = recv(sock , client_integer , sizeof(int32_t) , 0)) > 0 )
+                {
+                    total += ntohl(num);
+                    printf( "server---> %s <> %d, total: %d\n", client_integer, ntohl(num), total );
+                }
+            }
+                break;
+            case 'b': {
+                int32_t sendint = htonl(total);
+                message = (char*)&sendint;
+                printf( "server writes total: %d\n", total );
+                //Send the message back to client
+                write(sock , message , 4);
+            }
+                break;
+            default:
+                break;
+        }
     }
     
-    if(read_size == 0)
-    {
+    if(read_size == 0) {
         puts("Client disconnected");
         fflush(stdout);
     }
-    else if(read_size == -1)
-    {
+    else if(read_size == -1) {
         perror("recv failed");
     }
     
