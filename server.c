@@ -30,7 +30,7 @@ int main(int argc , char *argv[]) {
     int socket_desc , client_sock , c , *new_sock;
     struct sockaddr_in server , client;
     
-    //Create socket
+    // Create socket
     // SOCK_STREAM (TCP) or SOCK_DGRAM (UDP)
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
     if (socket_desc == -1) {
@@ -91,33 +91,27 @@ void *connection_handler(void *socket_desc)
 {
     //Get the socket descriptor
     int sock = *(int*)socket_desc;
-    int read_size;
+    ssize_t read_size;
     int32_t num = 0;
     char *message, *client_integer = (char*)&num ;
     
-//    //Send some messages to the client
-//    message = "Greetings! I am your connection handler\n";
-//    write(sock , message , strlen(message));
-//    
-//    message = "Now type something and i shall repeat what you type \n";
-//    write(sock , message , strlen(message));
     char action;
     while( (read_size = recv(sock , &action , sizeof(char) , 0)) > 0) {
-        //printf("action: %c\n", action);
+        // CONCURRENCY may happen, using lock schema
+        // Add and Get happens simultaneously
         switch (action) {
-            case 'a': {
+            case 'a': { /******** Add integer to total ********/
                 //Receive a message from client
-                if( (read_size = recv(sock , client_integer , sizeof(int32_t) , 0)) > 0 )
-                {
+                if( (read_size = recv(sock , client_integer , sizeof(int32_t) , 0)) > 0 ) {
                     total += ntohl(num);
-                    printf( "server---> %s <> %d, total: %d\n", client_integer, ntohl(num), total );
+                    printf( "server---> integer: %d, total: %d\n", ntohl(num), total );
                 }
             }
                 break;
-            case 'b': {
+            case 'b': { /******** Get current total ********/
                 int32_t sendint = htonl(total);
                 message = (char*)&sendint;
-                printf( "server writes total: %d\n", total );
+                printf( "server writes total [%d] back\n", total );
                 //Send the message back to client
                 write(sock , message , 4);
             }

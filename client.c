@@ -96,7 +96,7 @@ int main(int argc , char *argv[])
                     puts("recv failed");
                     break;
                 }
-                printf("---------- Total: %d ----------\n\n", ntohl(recnum));
+                printf("-------- Total = [%d] --------\n\n", ntohl(recnum));
             }
                 break;
             case 'q': {
@@ -109,7 +109,7 @@ int main(int argc , char *argv[])
                 break;
         }
         
-        if (n < 0) //
+        if (n < 0)
             break;
     }
     
