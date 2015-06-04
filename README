@@ -4,7 +4,7 @@ C socket programing project
 I used TCP for this project. SOCK_STREAM (TCP) or SOCK_DGRAM (UDP)
 
 Refer some starter code from here,
-http://www.binarytides.com/server-client-example-c-sockets-linux/
+http://www.thegeekstuff.com/2011/12/c-socket-programming/
 
 ################# IMPLEMENTATION ###################
 <I> server.c
